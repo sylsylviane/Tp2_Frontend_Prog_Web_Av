@@ -1,15 +1,17 @@
-import React from 'react';
+
+import { NavLink } from 'react-router-dom';
 
 function Nav() {
-    return (
-      <nav>
-        <a href="#">Mes livres</a>
-        <a href="#">Explorer</a>
-        <a href="#">Se connecter</a>
-        <a href="#">S'inscrire</a>
-        <a href="#">Mon profil</a>
-      </nav>
-    );
+  return (
+    <nav>
+        <NavLink to="/">Accueil</NavLink>
+        <NavLink to="/livres">Liste des livres</NavLink>
+
+        {/* <NavLink href="#">Ajouter un livre</NavLink>
+        <NavLink href="#">S'inscrire</NavLink>
+        <NavLink href="#">Mon profil</NavLink> */}
+    </nav>
+  );
 }
 
 export default Nav;
