@@ -1,11 +1,11 @@
 // IMPORTER LES STYLES CSS DE L'APP ICI
 
 import { Route, Routes } from "react-router-dom";
-
+import DetailFilm from "../DetailLivre/DetailLivre";
 import Header from "../Header/Header";
 import Accueil from "../Accueil/Accueil";
 import ListeLivres from "../ListeLivres/ListeLivres";
-import CarteLivre from "../CarteLivre/CarteLivre";
+import FormAjoutLivre from "../FormAjoutLivre/FormAjoutLivre";
 function App() {
   return (
     <>
@@ -13,7 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Accueil />} />
         <Route path="/livres" element={<ListeLivres />} />
-        <Route path="/livres/:id" element={<CarteLivre />} />
+        <Route path="/livres/:id" element={<DetailFilm />} />
+        <Route path="/livres/ajout" element={<FormAjoutLivre />} />
       </Routes>
     </>
   );
