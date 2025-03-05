@@ -4,12 +4,9 @@ import { NavLink } from 'react-router-dom';
 function Nav() {
   return (
     <nav>
-        <NavLink to="/">Accueil</NavLink>
-        <NavLink to="/livres">Liste des livres</NavLink>
-
-        {/* <NavLink href="#">Ajouter un livre</NavLink>
-        <NavLink href="#">S'inscrire</NavLink>
-        <NavLink href="#">Mon profil</NavLink> */}
+      <NavLink to="/">Accueil</NavLink>
+      <NavLink to="/livres">Liste des livres</NavLink>
+      <NavLink to="livres/ajout">Ajouter un livre</NavLink>
     </nav>
   );
 }
