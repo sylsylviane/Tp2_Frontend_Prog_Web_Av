@@ -68,7 +68,7 @@ function Footer() {
                 />
               </div>
               <h4 className="mt-4 text-base font-semibold text-white">
-                Company
+                Compagnie
               </h4>
               <a href="#" className="mt-2 text-base/7 text-gray-400">
                 À propos
