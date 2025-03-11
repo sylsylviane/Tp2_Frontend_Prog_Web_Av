@@ -1,11 +1,12 @@
-// IMPORTER LES STYLES CSS DU HEADER ICI
 import Nav from "../Nav/Nav";
 
 function Header() {
   return (
-    <header>
-      <Nav />
-    </header>
+    <div>
+      <header className="absolute inset-x-0 top-0 z-50">
+        <Nav />
+      </header>
+    </div>
   );
 }
 
