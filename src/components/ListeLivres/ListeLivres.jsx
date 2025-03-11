@@ -25,13 +25,14 @@ function ListeLivres(){
     }, []);
 
     return (
-        <div>
-            <h1>Liste de livres</h1>
-            {livres.map((livre) => {
-                return <CarteLivre key={livre.id} livre={livre}/>
-            })}
-            {livres.length == 0 && "Aucun livre trouvé."}
+      <>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-6 m-[50px] py-[50px]">
+          {livres.map((livre) => {
+            return <CarteLivre key={livre.id} livre={livre} />;
+          })}
+          {livres.length == 0 && "Aucun livre trouvé."}
         </div>
-    )
+      </>
+    );
 }
 export default ListeLivres;
