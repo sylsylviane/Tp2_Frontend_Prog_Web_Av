@@ -1,5 +1,4 @@
-// IMPORTER LES STYLES CSS DU FICHIER STYLES.CSS ICI
-
+import "./assets/styles.css"
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './components/App/App';
