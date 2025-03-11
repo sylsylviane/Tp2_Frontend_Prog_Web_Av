@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import Accueil from "../Accueil/Accueil";
 import ListeLivres from "../ListeLivres/ListeLivres";
 import FormAjoutLivre from "../FormAjoutLivre/FormAjoutLivre";
+import Footer from "../Footer/Footer";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
         <Route path="/livres/:id" element={<DetailFilm />} />
         <Route path="/livres/ajout" element={<FormAjoutLivre />} />
       </Routes>
+      <Footer />
     </>
   );
 }
