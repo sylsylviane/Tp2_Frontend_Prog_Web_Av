@@ -16,8 +16,12 @@ function CarteLivre(props) {
 
   // Afficher la carte d'un livre
   return (
-    <div key={`livre-${livre.id}`} onClick={cliqueCarte} id={livre.id}>     
-      <img src={`img/${livre.image}`} alt="{livre.titre}" />
+    <div key={`livre-${livre.id}`} onClick={cliqueCarte} id={livre.id}>
+      <img
+        src={`img/${livre.image}`}
+        alt="{livre.titre}"
+        className="w-full h-full rounded-sm"
+      />
     </div>
   );
 }
