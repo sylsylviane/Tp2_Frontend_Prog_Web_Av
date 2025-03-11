@@ -1,0 +1,13 @@
+@import url("./base/couleurs.css");
+@import url("./base/general.css");
+@import url("./base/typographie.css");
+@import "tailwindcss";
+
+@theme {
+  --color-gray-700: #3a394a;
+  --color-yellow-700: #cf9f60;
+  --color-red-400: #b58589;
+  --color-gray-400: #a3a2a0;
+  --color-neutral-50: #fbf9fa;
+
+}
