@@ -27,7 +27,7 @@ const features = [
 const aVariants = { initial: { x: 0 }, whileHover: { x: 0 } }
 const spanVariants = {
   initial: { x: 0 },
-  whileHover: { x: 15, transition: { duration: 0.5 } },
+  whileHover: { x: 10, transition: { duration: 0.5 } },
 };
 function Accueil() {
   return (
@@ -64,10 +64,19 @@ function Accueil() {
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           <div className="relative rounded-full px-3 py-1 text-sm/6 ring-1 ring-gray-400/10 hover:ring-gray-400/20">
             Créer votre compte maintenant !{" "}
-            <a href="#" className="font-semibold text-red-400">
+            <motion.a
+              variants={aVariants}
+              initial="initial"
+              whileHover="whileHover"
+              href="#"
+              className="font-semibold text-red-400"
+            >
               <span aria-hidden="true" className="absolute inset-0 " />
-              S'inscrire <span aria-hidden="true">&rarr;</span>
-            </a>
+              S'inscrire{" "}
+              <motion.span variants={spanVariants} className="inline-block" aria-hidden="true">
+                &rarr;
+              </motion.span>
+            </motion.a>
           </div>
         </div>
         <div className="relative text-center m-5">
