@@ -30,8 +30,8 @@ function CarteLivre(props) {
         className="w-full h-full object-cover"
       />
       <div className="absolute bg-neutral-50 top-0 p-4 w-full h-full rotate-y-180 opacity-0 hover:opacity-100 transition-opacity duration-300">
-        <h2 className="text-lg font-bold text-gray-500 pb-2">{d(livre.titre)}</h2>
-        <p className="text-sm text-gray-500 mb-1">{d(livre.auteur)}</p>
+        <h2 className="text-lg font-[700] text-gray-500 pb-2">{d(livre.titre)}</h2>
+        <p className="text-sm font-[500] text-gray-500 mb-1">{d(livre.auteur)}</p>
         <p className="w-full text-sm text-gray-500 overflow-y-hidden line-clamp-15">{d(livre.description)}</p>
       </div>
     </motion.div>
