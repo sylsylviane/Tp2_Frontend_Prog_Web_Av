@@ -2,7 +2,6 @@
 
 body {
   font-family: "Proza Libre", sans-serif;
-  font-weight: 400;
   font-style: normal;
 }
 
@@ -11,11 +10,12 @@ h2,
 h3,
 h4,
 h5,
-h6, 
-a {
+h6,
+a
+ {
   font-family: "Cormorant Garamond", serif;
   font-optical-sizing: auto;
-  font-weight: 300;
   font-style: normal;
   text-transform: uppercase;
 }
+
