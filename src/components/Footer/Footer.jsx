@@ -1,5 +1,7 @@
+import { motion } from "motion/react";
 import { QuestionMarkCircleIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 function Footer() {
+    const date = new Date().getFullYear();
   return (
     <footer className="py-5 ">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -29,14 +31,16 @@ function Footer() {
                 required
                 placeholder="Entrez votre courriel"
                 autoComplete="email"
-                className="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+                className="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-400 sm:text-sm/6"
               />
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1, transition: { duration: 1 } }}
+                whileTap={{ scale: 0.9 }}
                 type="submit"
-                className="flex-none rounded-md bg-yellow-700 px-3.5 py-2.5 text-sm font-semibold text-gray-700 shadow-xs hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className="flex-none rounded-md bg-yellow-700 px-3.5 py-2.5 text-gray-700 shadow-xs hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 S'abonner
-              </button>
+              </motion.button>
             </div>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
@@ -47,16 +51,16 @@ function Footer() {
                   className="size-6 text-white"
                 />
               </div>
-              <h4 className="mt-4 text-base font-semibold text-white">
+              <h4 className="mt-4 text-base font-semibold text-gray-400">
                 Support
               </h4>
-              <a href="#" className="mt-2 text-base/7 text-gray-400">
+              <a href="#" className="mt-2 text-base/7">
                 Documentation
               </a>
-              <a href="#" className="mt-2 text-base/7 text-gray-400">
+              <a href="#" className="mt-2 text-base/7">
                 Guide
               </a>
-              <a href="#" className="mt-2 text-base/7 text-gray-400">
+              <a href="#" className="mt-2 text-base/7">
                 FAQs
               </a>
             </div>
@@ -67,16 +71,16 @@ function Footer() {
                   className="size-6 text-white"
                 />
               </div>
-              <h4 className="mt-4 text-base font-semibold text-white">
+              <h4 className="mt-4 text-base font-semibold text-gray-400">
                 Compagnie
               </h4>
-              <a href="#" className="mt-2 text-base/7 text-gray-400">
+              <a href="#" className="mt-2 text-base/7">
                 À propos
               </a>
-              <a href="#" className="mt-2 text-base/7 text-gray-400">
+              <a href="#" className="mt-2 text-base/7">
                 Blog
               </a>
-              <a href="#" className="mt-2 text-base/7 text-gray-400">
+              <a href="#" className="mt-2 text-base/7">
                 Presse
               </a>
             </div>
@@ -85,7 +89,7 @@ function Footer() {
       </div>
       <div className="border-t border-gray-400/20 mt-16 sm:mt-24 lg:mt-32">
         <h5 className="text-center mt-5">
-          2025 Libra System inc. Tous droits réservés.
+          {date} Libra System inc. Tous droits réservés.
         </h5>
       </div>
     </footer>
