@@ -13,7 +13,7 @@ function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   return (
     <>
-      <nav className="flex items-center justify-between p-6 lg:px-8">
+      <nav className="flex items-center justify-between p-6 lg:px-8 border-b border-gray-400/20">
         <div className="flex lg:flex-1">
           <NavLink to="/">
             <h1 className="d-block text-2xl font-bold text-neutral-50">
