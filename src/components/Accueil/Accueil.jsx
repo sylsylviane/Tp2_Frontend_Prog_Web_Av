@@ -1,3 +1,4 @@
+import {motion} from "motion/react";
 import {
   PencilIcon,
   PlusCircleIcon,
@@ -23,20 +24,53 @@ const features = [
     icon: MagnifyingGlassIcon,
   },
 ];
+const aVariants = { initial: { x: 0 }, whileHover: { x: 0 } }
+const spanVariants = {
+  initial: { x: 0 },
+  whileHover: { x: 15, transition: { duration: 0.5 } },
+};
 function Accueil() {
   return (
     <>
-      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+      <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 lg:min-h-screen md:min-h-1/3 sm:min-h-24">
+        <motion.div
+          className="absolute w-40 h-40 bg-yellow-700 mx-5"
+          animate={{
+            scale: [1, 2, 2, 1],
+            rotate: [0, 90, 90, 0],
+            borderRadius: ["10%", "10%", "50%", "10%"],
+          }}
+          transition={{
+            duration: 5,
+            ease: "easeInOut",
+            repeat: 2,
+            repeatDelay: 1,
+          }}
+        ></motion.div>
+        <motion.div
+          className="absolute w-40 h-40 bg-red-400 mx-5"
+          animate={{
+            scale: [1, 2, 2, 1],
+            rotate: [90, 0, 90, 0],
+            borderRadius: ["10%", "10%", "50%", "10%"],
+          }}
+          transition={{
+            duration: 4,
+            ease: "easeInOut",
+            repeat: 2,
+            repeatDelay: 1,
+          }}
+        ></motion.div>
         <div className="hidden sm:mb-8 sm:flex sm:justify-center">
           <div className="relative rounded-full px-3 py-1 text-sm/6 ring-1 ring-gray-400/10 hover:ring-gray-400/20">
             Créer votre compte maintenant !{" "}
             <a href="#" className="font-semibold text-red-400">
-              <span aria-hidden="true" className="absolute inset-0" />
+              <span aria-hidden="true" className="absolute inset-0 " />
               S'inscrire <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </div>
-        <div className="text-center m-5">
+        <div className="relative text-center m-5">
           <h1 className="text-5xl tracking-tight sm:text-7xl">
             Bienvenue sur Libra System
           </h1>
@@ -48,19 +82,34 @@ function Accueil() {
             lectures, Libra System est l'outil qu'il vous faut.
           </p>
         </div>
-        <div className="mt-10 flex items-center justify-center gap-x-6">
-          <a
+        <div className="mx-5 mt-10 flex flex-wrap items-center justify-center gap-6">
+          <motion.a
+            whileHover={{ scale: 1.1, transition: { duration: 1 } }}
+            whileTap={{ scale: 0.9 }}
             href="#"
             className="rounded-md bg-yellow-700 px-3.5 py-2.5 text-lg text-black shadow-xs hover:bg-red-400"
           >
             Se connecter
-          </a>
-          <a href="#" className="text-lg/6">
-            Apprenez-en plus <span aria-hidden="true">→</span>
-          </a>
+          </motion.a>
+          <motion.a
+            variants={aVariants}
+            initial="initial"
+            whileHover="whileHover"
+            href="#"
+            className="text-lg/6"
+          >
+            Apprenez-en plus{" "}
+            <motion.span
+              variants={spanVariants}
+              aria-hidden="true"
+              className="inline-block"
+            >
+              →
+            </motion.span>
+          </motion.a>
         </div>
       </div>
-      {/* *********FEATURES*************** */}
+      {/* *********Contenu Fonctionnalités*************** */}
       <div className="overflow-hidden py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
@@ -94,8 +143,10 @@ function Accueil() {
                 </dl>
               </div>
             </div>
-            <img
-              alt="Product screenshot"
+            <motion.img
+              initial={{ x: -700 }}
+              whileInView={{ x: 0, transition: { duration: 1 } }}
+              alt="Livres"
               src="../../img/livres.jpg"
               width={2432}
               height={1442}
