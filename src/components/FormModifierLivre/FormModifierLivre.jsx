@@ -325,6 +325,7 @@ function FormModifierLivre() {
                         value="Thriller"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Thriller")}
                         aria-describedby="categorie-thriller"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -364,6 +365,7 @@ function FormModifierLivre() {
                         value="Policier"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Policier")}
                         aria-describedby="categorie-policier"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -403,6 +405,7 @@ function FormModifierLivre() {
                         value="Science Fiction"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Science Fiction")}
                         aria-describedby="categorie-science-fiction"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -445,6 +448,7 @@ function FormModifierLivre() {
                         value="Drame"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Drame")}
                         aria-describedby="categorie-drame"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -484,6 +488,7 @@ function FormModifierLivre() {
                         value="Politique"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Politique")}
                         aria-describedby="categorie-politique"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -526,6 +531,7 @@ function FormModifierLivre() {
                         value="Littérature Americaine"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Littérature Americaine")}
                         aria-describedby="categorie-litterature-americaine"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -568,6 +574,7 @@ function FormModifierLivre() {
                         value="Horreur"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Horreur")}
                         aria-describedby="categorie-horreur"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -607,6 +614,7 @@ function FormModifierLivre() {
                         value="Fantastique"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Fantastique")}
                         aria-describedby="categorie-fantastique"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
@@ -649,6 +657,7 @@ function FormModifierLivre() {
                         value="Litterature quebecoise"
                         type="checkbox"
                         onChange={onCategorieChange}
+                        checked={categories.includes("Litterature quebecoise")}
                         aria-describedby="categorie-litterature-quebecoise"
                         className="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-red-400 checked:bg-red-400 indeterminate:border-red-400 indeterminate:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"
                       />
