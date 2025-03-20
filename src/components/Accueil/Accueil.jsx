@@ -1,9 +1,11 @@
-import {motion} from "motion/react";
+import { motion } from "motion/react";
 import {
   PencilIcon,
   PlusCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
+
+// Fonctionnalités de l'API
 const features = [
   {
     name: "Ajout de Livres",
@@ -24,11 +26,15 @@ const features = [
     icon: MagnifyingGlassIcon,
   },
 ];
-const aVariants = { initial: { x: 0 }, whileHover: { x: 0 } }
+
+// Variants pour les animations
+const aVariants = { initial: { x: 0 }, whileHover: { x: 0 } };
 const spanVariants = {
   initial: { x: 0 },
   whileHover: { x: 10, transition: { duration: 0.5 } },
 };
+
+// Composant qui permet d'afficher la page d'accueil de l'application
 function Accueil() {
   return (
     <>
@@ -73,7 +79,11 @@ function Accueil() {
             >
               <span aria-hidden="true" className="absolute inset-0 " />
               S'inscrire{" "}
-              <motion.span variants={spanVariants} className="inline-block" aria-hidden="true">
+              <motion.span
+                variants={spanVariants}
+                className="inline-block"
+                aria-hidden="true"
+              >
                 &rarr;
               </motion.span>
             </motion.a>
