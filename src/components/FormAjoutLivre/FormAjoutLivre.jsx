@@ -2,12 +2,13 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { trim, isLength, isISBN, isInt, isEmpty } from "validator";
 
-
 // Composant qui permet d'ajouter un livre à la base de données 
 function FormAjoutLivre() {
   // Référence au formulaire
   const formRef = useRef();
   const navigate = useNavigate();
+
+  //Gestion des états
   const [categories, setCategories] = useState([]);
   const [formulaireValide, setFormulaireValide] = useState(false);
   const [donneesLivre, setDonneesLivre] = useState({
@@ -21,8 +22,6 @@ function FormAjoutLivre() {
     categories: [],
     auteur: "",
   });
-
-  // Gestion des messages d'erreur
   const [erreurs, setErreurs] = useState({
     titre: "",
     description: "",
@@ -31,9 +30,9 @@ function FormAjoutLivre() {
     pages: "",
     date: "",
     image: "",
+    categories: "",
     auteur: "",
   });
-
   const [message, setMessage] = useState("");
 
 
@@ -368,6 +367,7 @@ function FormAjoutLivre() {
           </div>
         </div>
 
+{/* SECTION CATÉGORIES - CHECKBOXES */}
         <div className="border-b border-neutral-50 pb-12 ">
           <h2 className="text-lg ">Catégories</h2>
           <p className="mt-1 text-sm/6 text-gray-400">
