@@ -1,7 +1,13 @@
 import { motion } from "motion/react";
-import { QuestionMarkCircleIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
+import {
+  QuestionMarkCircleIcon,
+  HandRaisedIcon,
+} from "@heroicons/react/24/outline";
+
+// Composant qui permet d'afficher le pied de page de l'application
 function Footer() {
-    const date = new Date().getFullYear();
+  const date = new Date().getFullYear();
+
   return (
     <footer className="py-5 ">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -95,4 +101,5 @@ function Footer() {
     </footer>
   );
 }
+
 export default Footer;
