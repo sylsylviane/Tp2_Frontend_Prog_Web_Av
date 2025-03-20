@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 
 // Mock de useNavigate pour éviter les erreurs lors de l'exécution des tests.
 vi.mock("react-router-dom", () => ({
-  // Fonction vide pour simuler useNavigate 
+  // Fonction vide pour simuler useNavigate
   useNavigate: vi.fn(),
-}))
+}));
 
 describe("FormAjoutLivre", () => {
   it("affiche le formulaire d'ajout de livre", () => {
