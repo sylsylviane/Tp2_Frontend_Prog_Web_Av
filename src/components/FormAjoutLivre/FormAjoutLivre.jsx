@@ -149,33 +149,36 @@ function FormAjoutLivre() {
     // setMessage("");
     validerFormulaire();
     // Vérifier que le formulaire est valide
-    if (formulaireValide) {
-      let url = import.meta.env.VITE_DEV_URL;
+    try{
+      if (formulaireValide) {
+        let url = import.meta.env.VITE_DEV_URL;
 
-      if (import.meta.env.VITE_MODE == "PRODUCTION") {
-        url = import.meta.env.VITE_PROD_URL;
-      }
+        if (import.meta.env.VITE_MODE == "PRODUCTION") {
+          url = import.meta.env.VITE_PROD_URL;
+        }
 
-      // On prépare les données à envoyer
-      const objDonnees = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(donneesLivre),
-      };
-      // On envoie les données
-      const reponse = await fetch(`${url}/livres`, objDonnees);
-      // On récupère les données de la réponse
-      const resultat = await reponse.json();
-      
-      // On affiche un message en fonction de la réponse
-      if (reponse.ok) {
-        navigate("/livres");
-      } else {
-        console.log(resultat);
-        setMessage(resultat.message);
+        // On prépare les données à envoyer
+        const objDonnees = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(donneesLivre),
+        };
+        // On envoie les données
+        const reponse = await fetch(`${url}/livres`, objDonnees);
+        // On récupère les données de la réponse
+        const resultat = await reponse.json();
+
+        // On affiche un message en fonction de la réponse
+        if (reponse.ok) {
+          navigate("/livres");
+        } else {
+          setMessage(resultat.message);
+        }
       }
+    }catch(erreur){
+      setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
     }
   }
 
