@@ -2,9 +2,13 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import he from "he";
 import { motion } from "motion/react";
+
 // Composant qui permet d'afficher les détails d'un livre
-function DetailLivre (){
+function DetailLivre() {
+  // Récupérer l'identifiant du livre à afficher
   const { id } = useParams();
+
+  // Définition de l'état du livre
   let [livre, setLivre] = useState({
     titre: "",
     description: "",
@@ -16,29 +20,39 @@ function DetailLivre (){
     categories: [],
     auteur: "",
   });
+
   // Fonction qui permet de décoder les caractères spéciaux
   const d = (text) => he.decode(text);
+
+  // Utiliser le hook useNavigate pour la navigation
   const navigate = useNavigate();
+
+  // Définition de l'état du message
   const [message, setMessage] = useState("");
+
   // Récupérer les détails d'un livre de la base de données
   useEffect(() => {
     async function fetchData() {
-      let url = import.meta.env.VITE_DEV_URL;
+      try {
+        let url = import.meta.env.VITE_DEV_URL;
 
-      if (import.meta.env.VITE_MODE == "PRODUCTION") {
-        url = import.meta.env.VITE_PROD_URL;
+        if (import.meta.env.VITE_MODE == "PRODUCTION") {
+          url = import.meta.env.VITE_PROD_URL;
+        }
+
+        const reponse = await fetch(`${url}/livres/${id}`);
+        const donneesLivre = await reponse.json();
+        setLivre(donneesLivre);
+      } catch (erreur) {
+        setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
       }
-
-      const reponse = await fetch(`${url}/livres/${id}`);
-      const donneesLivre = await reponse.json();
-      setLivre(donneesLivre);
     }
     fetchData();
   }, []);
 
   // Fonction qui permet de supprimer un livre
   async function supprimerLivre() {
-    try{
+    try {
       let url = import.meta.env.VITE_DEV_URL;
 
       if (import.meta.env.VITE_MODE == "PRODUCTION") {
@@ -51,10 +65,10 @@ function DetailLivre (){
       const reponse = await fetch(`${url}/livres/${id}`, objDonnees);
       if (reponse.ok) {
         navigate("/livres");
-      }else{
+      } else {
         setMessage("Erreur lors de la suppression du livre.");
       }
-    }catch(erreur){
+    } catch (erreur) {
       setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
     }
   }
@@ -124,8 +138,9 @@ function DetailLivre (){
           </div>
         </div>
       </div>
+      {/* Afficher message */}
       {message ? (
-        <div className="border rounded-md p-3 mt-3 ">
+        <div className="border rounded-md p-3 m-[100px] ">
           <p>{message}</p>
         </div>
       ) : (
@@ -135,4 +150,4 @@ function DetailLivre (){
   );
 }
 
-export default DetailLivre
+export default DetailLivre;
