@@ -10,7 +10,6 @@ function FormAjoutLivre() {
 
   //Gestion des états
   const [categories, setCategories] = useState([]);
-  const [formulaireValide, setFormulaireValide] = useState(false);
   const [donneesLivre, setDonneesLivre] = useState({
     titre: "",
     description: "",
@@ -134,9 +133,9 @@ function FormAjoutLivre() {
     }
 
     setErreurs(nouvellesErreurs); // On met à jour les erreurs
-
+    setMessage("Veuillez remplir les champs obligatoires."); // On affiche un message d'erreur
     // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.). 
-    setFormulaireValide(
+    return(
       formRef.current.checkValidity() &&
         Object.keys(nouvellesErreurs).length === 0
     );
@@ -146,10 +145,10 @@ function FormAjoutLivre() {
   async function onSubmit(e) {
     e.preventDefault();
     // setMessage("");
-    validerFormulaire();
+    const formulaireEstValide = validerFormulaire();
     // Vérifier que le formulaire est valide
     try{
-      if (formulaireValide) {
+      if (formulaireEstValide) {
         let url = import.meta.env.VITE_DEV_URL;
 
         if (import.meta.env.VITE_MODE == "PRODUCTION") {
@@ -367,7 +366,7 @@ function FormAjoutLivre() {
           </div>
         </div>
 
-{/* SECTION CATÉGORIES - CHECKBOXES */}
+        {/* SECTION CATÉGORIES - CHECKBOXES */}
         <div className="border-b border-neutral-50 pb-12 ">
           <h2 className="text-lg ">Catégories</h2>
           <p className="mt-1 text-sm/6 text-gray-400">
@@ -751,12 +750,15 @@ function FormAjoutLivre() {
       </div>
 
       <div className="mt-6 flex items-center justify-center gap-x-6">
-        <button type="button" className="text-sm/6">
+        <button
+          type="button"
+          className="text-sm/6 cursor-pointer px-3 py-2 border border-transparent hover:border hover:border-red-400 rounded-md transition duration-500 ease-in-out"
+        >
           Annuler
         </button>
         <input
           type="submit"
-          className="rounded-md bg-yellow-700 px-3 py-2 text-sm font-semibold text-gray-700 shadow-xs hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+          className="rounded-md bg-yellow-700 px-3 py-2 cursor-pointer font-semibold text-gray-700 shadow-xs hover:bg-red-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
           value="Ajouter"
         />
       </div>
