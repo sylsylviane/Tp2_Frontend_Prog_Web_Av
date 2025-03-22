@@ -51,7 +51,7 @@ function CarteLivre(props) {
       onClick={cliqueCarte}
       id={livre.id}
     >
-      <div className="absolute min-h-[549px] min-w-[349px]">
+      <div className="carteLivre absolute min-h-[549px] min-w-[349px]">
         <motion.img
           src={`img/${livre.image}`}
           alt="{livre.titre}"
@@ -59,7 +59,7 @@ function CarteLivre(props) {
           variants={etatImage}
         />
         <motion.div
-          className="absolute bg-neutral-50 top-0 p-4 w-full h-full rounded-lg"
+          className="carteEnvers absolute bg-neutral-50 top-0 p-4 w-full h-full rounded-lg"
           variants={etatTexte}
         >
           <h2 className="text-lg font-[700] text-gray-500 pb-2">
