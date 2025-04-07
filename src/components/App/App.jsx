@@ -17,7 +17,7 @@ function App() {
       <AuthContextProvider>
         <Header />
         <ScrollToTop />
-        <main>
+        <main className="min-h-screen mx-auto py-3 px-4 sm:px-6 lg:px-8">
           <Routes>
             <Route path="/" element={<Accueil />} />
             <Route path="/livres" element={<ListeLivres />} />
