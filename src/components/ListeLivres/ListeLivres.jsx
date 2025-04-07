@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useAnimation } from "motion/react";
 import CarteLivre from "../CarteLivre/CarteLivre";
 import LoadingCircleSpinner from "../LoadingCircleSpinner/LoadingCircleSpinner";
-
+import { Helmet } from "react-helmet-async";
 // Composant qui permet d'afficher la liste des livres
 function ListeLivres() {
   const controls = useAnimation(); //Permet de gérer les animations manuellement
@@ -91,6 +91,11 @@ function ListeLivres() {
 
   return (
     <>
+    <Helmet>
+          <title>Libra System - Liste de livres</title>
+          <meta name="description" content="Liste de livres disponibles dans notre API." />
+          <meta name="keywords" content="Api rest, livre, bibliothèque, gestion de livres, catalogue, recherche de livres" />
+        </Helmet>
       {/* Message */}
       {message ? (
         <div className="border rounded-md p-3 mt-[150px] mx-[50px] bg-red-100 text-red-900">
