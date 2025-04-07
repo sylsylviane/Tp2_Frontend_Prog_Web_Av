@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import DetailLivre from "../DetailLivre/DetailLivre";
 import Header from "../Header/Header";
 import Accueil from "../Accueil/Accueil";
@@ -8,23 +8,32 @@ import Footer from "../Footer/Footer";
 import FormModifierLivre from "../FormModifierLivre/FormModifierLivre";
 import AuthContextProvider from "../AuthContext/AuthContext";
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
-    <AuthContextProvider>
-      <Header />
-      <ScrollToTop />
-      <main>
-        <Routes>
-          <Route path="/" element={<Accueil />} />
-          <Route path="/livres" element={<ListeLivres />} />
-          <Route path="/livres/ajout" element={<FormAjoutLivre />} />
-          <Route path="/livres/modifier/:id" element={<FormModifierLivre />} />
-          <Route path="/livres/:id" element={<DetailLivre />} />
-        </Routes>
-      </main>
-      <Footer />
-    </AuthContextProvider>
+    <HelmetProvider>
+      <AuthContextProvider>
+        <Header />
+        <ScrollToTop />
+        <main>
+          <Routes>
+            <Route path="/" element={<Accueil />} />
+            <Route path="/livres" element={<ListeLivres />} />
+            <Route element={<AdminRoute />}>
+              <Route path="/livres/ajout" element={<FormAjoutLivre />} />
+              <Route
+                path="/livres/modifier/:id"
+                element={<FormModifierLivre />}
+              />
+            </Route>
+            <Route path="/livres/:id" element={<DetailLivre />} />
+          </Routes>
+        </main>
+        <Footer />
+      </AuthContextProvider>
+    </HelmetProvider>
   );
 }
 
