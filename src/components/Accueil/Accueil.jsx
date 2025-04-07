@@ -4,7 +4,7 @@ import {
   PlusCircleIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-
+import { Helmet } from "react-helmet-async";
 // Fonctionnalités de l'API
 const features = [
   {
@@ -36,8 +36,14 @@ const spanVariants = {
 
 // Composant qui permet d'afficher la page d'accueil de l'application
 function Accueil() {
+
   return (
     <>
+    <Helmet>
+      <title>Libra System - Accueil</title>
+      <meta name="description" content="Bienvenue sur Libra System, votre API de gestion de livres." />
+      <meta name="keywords" content="Api rest, livre, bibliothèque, gestion de livres, catalogue, recherche de livres" />
+    </Helmet>
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 lg:min-h-screen md:min-h-1/3 sm:min-h-24">
         <motion.div
           className="absolute w-40 h-40 bg-yellow-700 mx-5"
