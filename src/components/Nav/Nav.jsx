@@ -1,6 +1,5 @@
-
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useState, useRef } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -13,22 +12,67 @@ import { AuthContext } from '../AuthContext/AuthContext';
 import { useContext } from 'react';
 import { motion } from "motion/react";
 
-const navigation = [
-  { name: "Accueil", href: "/" },
-  { name: "Liste des livres", href: "/livres" },
-  { name: "Ajouter un livre", href: "/livres/ajout" },
-
-];
 function Nav() {
+  // Référence pour le formulaire
+  const formRef = useRef();
+
+  const navigate = useNavigate();
+
+  // Variables d'état
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { jeton, connexion, deconnexion } = useContext(AuthContext);
+  // Variable d'état pour la modale de connexion
   const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
   // Variants pour les animations
   const aVariants = { initial: { x: 0 }, whileHover: { x: 0 } };
   const spanVariants = {
     initial: { x: 0 },
     whileHover: { x: 10, transition: { duration: 0.5 } },
   };
+  
+  async function envoiFormulaire(e) {
+    try{
+      e.preventDefault();
+
+      // TODO: Valider les données du formulaire
+
+      // Récupérer les valeurs du formulaire
+      const { courriel, mdp } = formRef.current;
+      const body = { courriel: courriel.value, mdp: mdp.value };
+
+      const optionsRequete = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }
+
+      // Déterminer l'URL de la requête en fonction de l'environnement
+      let url = import.meta.env.VITE_DEV_URL;
+
+      if (import.meta.env.VITE_MODE == "PRODUCTION") {
+        url = import.meta.env.VITE_PROD_URL;
+      }
+
+      const reponse = await fetch(`${url}/utilisateurs/connexion`, optionsRequete);
+      const donnees = await reponse.json();
+      console.log(donnees);
+      
+      if (reponse.ok) {        
+        setMessage(donnees.message)
+        // setTimeout(() => {
+        //   setMessage("");
+        // }, 2000);
+        connexion(donnees.jeton);
+      }else{
+        setMessage(donnees.message);
+      }
+
+    }catch(erreur){
+      setMessage("Une erreur est survenue. Réessayez dans quelques instants.");
+    }
+  }
   return (
     <>
       {/* NAVIGATION PRINCIPALE GRAND ÉCRAN */}
@@ -53,38 +97,37 @@ function Nav() {
         </div>
 
         <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.href}
-              className="text-neutral-50 hover:text-neutral-200"
-            >
-              {item.name}
-            </NavLink>
-          ))}
+          <NavLink to="/">Accueil</NavLink>
+          <NavLink to="/livres">Liste de livres</NavLink>
+          {jeton && <NavLink to="/livres/ajout">Ajouter un livre</NavLink>}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <motion.p
-            onClick={() => setOpen(true)}
-            variants={aVariants}
-            initial="initial"
-            whileHover="whileHover"
-            href="#"
-            className="text-sm/6 cursor-pointer"
-          >
-            Se connecter{" "}
-            <motion.span
-              variants={spanVariants}
-              className="inline-block"
-              aria-hidden="true"
+        {!jeton && (
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <motion.p
+              onClick={() => setOpen(true)}
+              variants={aVariants}
+              initial="initial"
+              whileHover="whileHover"
+              className="text-sm/6 cursor-pointer"
             >
-              &rarr;
-            </motion.span>
-          </motion.p>
-        </div>
+              Se connecter{" "}
+              <motion.span
+                variants={spanVariants}
+                className="inline-block"
+                aria-hidden="true"
+              >
+                &rarr;
+              </motion.span>
+            </motion.p>
+          </div>
+        )}
         {jeton && (
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 ">
+            <UserCircleIcon
+              aria-hidden="true"
+              className="size-6 text-neutral-50 mr-4 cursor-pointer"
+            />
+            <a href="#" className="text-sm/6 " onClick={deconnexion}>
               {/* on pourrait mettre une balise p avec un onClick si on ne veut pas mettre un lien a avec une ancre */}
               Se déconnecter <span>&rarr;</span>
             </a>
@@ -116,24 +159,61 @@ function Nav() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
+                <NavLink
+                  to="/"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                >
+                  Accueil
+                </NavLink>
+                <NavLink
+                  to="/livres"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                >
+                  Liste de livres
+                </NavLink>
+                {jeton && (
+                  <NavLink
+                    to="/livres/ajout"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                    }}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
-                    {item.name}
+                    Ajouter un livre
+                  </NavLink>
+                )}
+              </div>
+              {!jeton && (
+                <div className="py-6">
+                  <a
+                    onClick={() => {
+                      setOpen(true);
+                      setMobileMenuOpen(false);
+                    }}
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                  >
+                    Se connecter
                   </a>
-                ))}
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Se connecter
-                </a>
-              </div>
+                </div>
+              )}
+              {jeton && (
+                <div className="py-6">
+                  <NavLink
+                    onClick={deconnexion}
+                    href="#"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                  >
+                    Se déconnecter
+                  </NavLink>
+                </div>
+              )}
             </div>
           </div>
         </DialogPanel>
@@ -147,7 +227,7 @@ function Nav() {
         />
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
             <DialogPanel
               transition
               className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg data-closed:sm:translate-y-0 data-closed:sm:scale-95"
@@ -167,7 +247,12 @@ function Nav() {
                     >
                       Se connecter
                     </DialogTitle>
-                    <form className="mt-2">
+                    <form
+                      action=""
+                      onSubmit={envoiFormulaire}
+                      ref={formRef}
+                      className="mt-2"
+                    >
                       <label htmlFor="courriel" className="text-gray-700">
                         Courriel
                       </label>
@@ -186,30 +271,30 @@ function Nav() {
                         <input
                           id="mdp"
                           name="mdp"
-                          type="text"
+                          type="password"
                           className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                         />
+                      </div>
+                      <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <button
+                          type="submit"
+                          onClick={() => setOpen(false)}
+                          className="inline-flex w-full justify-center rounded-md bg-yellow-700 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-400 sm:ml-3 sm:w-auto"
+                        >
+                          Connexion
+                        </button>
+                        <button
+                          type="button"
+                          data-autofocus
+                          onClick={() => setOpen(false)}
+                          className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                        >
+                          Annuler
+                        </button>
                       </div>
                     </form>
                   </div>
                 </div>
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="inline-flex w-full justify-center rounded-md bg-yellow-700 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-400 sm:ml-3 sm:w-auto"
-                >
-                  Connexion
-                </button>
-                <button
-                  type="button"
-                  data-autofocus
-                  onClick={() => setOpen(false)}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                >
-                  Annuler
-                </button>
               </div>
             </DialogPanel>
           </div>
