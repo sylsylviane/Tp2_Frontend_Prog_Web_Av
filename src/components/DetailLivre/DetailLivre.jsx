@@ -23,7 +23,7 @@ function DetailLivre() {
     auteur: "",
   });
 
-    const { jeton, connexion, deconnexion } = useContext(AuthContext);
+  const { jeton, connexion, deconnexion } = useContext(AuthContext);
 
   // Fonction qui permet de décoder les caractères spéciaux
   const d = (text) => he.decode(text);
@@ -88,7 +88,7 @@ function DetailLivre() {
           content="Api rest, livre, bibliothèque, gestion de livres, catalogue, recherche de livres"
         />
       </Helmet>
-      <main>
+      <div>
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 px-4 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
           <img src={`/img/${livre.image}`} alt="" />
           <div>
@@ -163,7 +163,7 @@ function DetailLivre() {
         ) : (
           ""
         )}
-      </main>
+      </div>
     </>
   );
 }
