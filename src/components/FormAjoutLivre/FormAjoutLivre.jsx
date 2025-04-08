@@ -47,8 +47,6 @@ function FormAjoutLivre() {
     const nom = champ.name;
     let valeur = champ.value;
 
-    valeur = trim(valeur);
-
     const nouvellesValeurs = { ...donneesLivre, [nom]: valeur };
     setDonneesLivre(nouvellesValeurs);
   }
