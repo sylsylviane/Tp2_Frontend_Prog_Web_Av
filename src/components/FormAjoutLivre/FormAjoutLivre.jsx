@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { trim, isLength, isISBN, isInt, isEmpty } from "validator";
 import { AuthContext } from "../AuthContext/AuthContext";
-// Composant qui permet d'ajouter un livre à la base de données 
+// Composant qui permet d'ajouter un livre à la base de données
 function FormAjoutLivre() {
   const { jeton } = useContext(AuthContext);
   // Référence au formulaire
@@ -34,7 +34,6 @@ function FormAjoutLivre() {
     auteur: "",
   });
   const [message, setMessage] = useState("");
-
 
   // Mettre à jour les données du livre lorsqu'une catégorie est ajoutée ou retirée
   useEffect(() => {
@@ -83,7 +82,7 @@ function FormAjoutLivre() {
       nouvellesErreurs.titre = "Le titre ne peut pas être vide";
     } else if (!isLength(donneesLivre.titre, { max: 250 })) {
       nouvellesErreurs.titre =
-        "Le titre est trop long. (maximum: 250 caractères)";      
+        "Le titre est trop long. (maximum: 250 caractères)";
     }
 
     if (!isLength(donneesLivre.description, { max: 2000 })) {
@@ -91,10 +90,10 @@ function FormAjoutLivre() {
         "La description est trop longue. (maximum: 2000 caractères)";
     }
 
-   if (!isLength(donneesLivre.editeur, { max: 100 })) {
-     nouvellesErreurs.editeur =
-       "L'éditeur doit contenir maximum 100 caractères.";
-   }
+    if (!isLength(donneesLivre.editeur, { max: 100 })) {
+      nouvellesErreurs.editeur =
+        "L'éditeur doit contenir maximum 100 caractères.";
+    }
 
     if (isEmpty(donneesLivre.auteur)) {
       nouvellesErreurs.auteur = "L'auteur ne peut pas être vide";
@@ -115,15 +114,17 @@ function FormAjoutLivre() {
         "Le nombre de page ne peut dépasser 10 caractères";
     }
 
-    if (!isEmpty(donneesLivre.date) && !isInt(donneesLivre.date, { min: 1900, max : dateCourante })) {
+    if (
+      !isEmpty(donneesLivre.date) &&
+      !isInt(donneesLivre.date, { min: 1900, max: dateCourante })
+    ) {
       nouvellesErreurs.date =
         "L'année de publication doit être une date valide entre 1900 et aujourd'hui.";
     }
 
     if (isEmpty(donneesLivre.image)) {
-      nouvellesErreurs.image =
-        "Le champ image ne peut pas être vide";
-    }else if (
+      nouvellesErreurs.image = "Le champ image ne peut pas être vide";
+    } else if (
       !donneesLivre.image.endsWith(".jpg") &&
       !donneesLivre.image.endsWith(".jpeg") &&
       !donneesLivre.image.endsWith(".png") &&
@@ -135,10 +136,10 @@ function FormAjoutLivre() {
 
     setErreurs(nouvellesErreurs); // On met à jour les erreurs
     setMessage("Veuillez remplir les champs obligatoires."); // On affiche un message d'erreur
-    // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.). 
-    return(
+    // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.).
+    return (
       formRef.current.checkValidity() &&
-        Object.keys(nouvellesErreurs).length === 0
+      Object.keys(nouvellesErreurs).length === 0
     );
   }
 
@@ -148,7 +149,7 @@ function FormAjoutLivre() {
     // setMessage("");
     const formulaireEstValide = validerFormulaire();
     // Vérifier que le formulaire est valide
-    try{
+    try {
       if (formulaireEstValide) {
         let url = import.meta.env.VITE_DEV_URL;
 
@@ -161,7 +162,7 @@ function FormAjoutLivre() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            'authorization': `Bearer ${jeton}` // On envoie le jeton d'authentification dans le header de la requête 
+            authorization: `Bearer ${jeton}`, // On envoie le jeton d'authentification dans le header de la requête
           },
           body: JSON.stringify(donneesLivre),
         };
@@ -177,7 +178,7 @@ function FormAjoutLivre() {
           setMessage(resultat.message);
         }
       }
-    }catch(erreur){
+    } catch (erreur) {
       setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
     }
   }
@@ -777,7 +778,3 @@ function FormAjoutLivre() {
 }
 
 export default FormAjoutLivre;
-
-
-
-
