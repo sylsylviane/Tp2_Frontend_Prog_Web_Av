@@ -135,7 +135,7 @@ function FormAjoutLivre() {
     }
 
     setErreurs(nouvellesErreurs); // On met à jour les erreurs
-    setMessage("Veuillez remplir les champs obligatoires."); // On affiche un message d'erreur
+
     // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.).
     return (
       formRef.current.checkValidity() &&
