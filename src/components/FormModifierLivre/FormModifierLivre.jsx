@@ -178,9 +178,9 @@ function FormModifierLivre() {
     setErreurs(nouvellesErreurs); // On met à jour les erreurs
 
     // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.).
-    setFormulaireValide(
+    return (
       formRef.current.checkValidity() &&
-        Object.keys(nouvellesErreurs).length === 0
+      Object.keys(nouvellesErreurs).length === 0
     );
   }
 
@@ -190,14 +190,15 @@ function FormModifierLivre() {
    */
   async function onSubmit(e) {
     e.preventDefault();
-    validerFormulaire();
-    if (formRef.current.checkValidity() && formulaireValide) {
-      try {
+    const formulaireValide = validerFormulaire();
+    try {
+      if (formulaireValide) {
         let url = import.meta.env.VITE_DEV_URL;
 
         if (import.meta.env.VITE_MODE == "PRODUCTION") {
           url = import.meta.env.VITE_PROD_URL;
         }
+
         const objDonnees = {
           method: "PUT",
           headers: {
@@ -208,18 +209,46 @@ function FormModifierLivre() {
         };
 
         const reponse = await fetch(`${url}/livres/${id}`, objDonnees);
-
+        const resultat = await reponse.json();
         if (reponse.ok) {
           navigate(`/livres/${id}`);
         } else {
           setMessage(resultat.message);
         }
-      } catch (erreur) {
-        setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
       }
-    } else {
-      setMessage("Veuillez corriger les erreurs dans le formulaire.");
+    }catch (erreur) {
+      setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
     }
+      
+    // if (formRef.current.checkValidity() && formulaireValide) {
+    //   try {
+    //     let url = import.meta.env.VITE_DEV_URL;
+
+    //     if (import.meta.env.VITE_MODE == "PRODUCTION") {
+    //       url = import.meta.env.VITE_PROD_URL;
+    //     }
+    // const objDonnees = {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     authorization: `Bearer ${jeton}`,
+    //   },
+    //   body: JSON.stringify(donneesLivre),
+    // };
+
+    //     const reponse = await fetch(`${url}/livres/${id}`, objDonnees);
+
+    // if (reponse.ok) {
+    //   navigate(`/livres/${id}`);
+    // } else {
+    //   setMessage(resultat.message);
+    // }
+    //   } catch (erreur) {
+    //     setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
+    //   }
+    // } else {
+    //   setMessage("Veuillez corriger les erreurs dans le formulaire.");
+    // }
   }
 
   return (
