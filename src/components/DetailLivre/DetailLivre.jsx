@@ -65,6 +65,9 @@ function DetailLivre() {
 
       const objDonnees = {
         method: "DELETE",
+        headers:{
+          authorization: `Bearer ${jeton}`,	
+        }
       };
       const reponse = await fetch(`${url}/livres/${id}`, objDonnees);
       if (reponse.ok) {
