@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { trim, isLength, isISBN, isInt, isEmpty } from "validator";
 import { AuthContext } from "../AuthContext/AuthContext";
 // Composant qui permet d'ajouter un livre à la base de données 
 function FormAjoutLivre() {
-  // const { jeton } = useContext(AuthContext);
+  const { jeton } = useContext(AuthContext);
   // Référence au formulaire
   const formRef = useRef();
   const navigate = useNavigate();
