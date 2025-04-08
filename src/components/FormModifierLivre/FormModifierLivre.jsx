@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { trim, isLength, isISBN, isInt, isEmpty } from "validator";
 import he from "he";
+import { AuthContext } from "../AuthContext/AuthContext";
 
 function FormModifierLivre() {
+  const { jeton } = useContext(AuthContext);
+
   // Récupérer l'identifiant du livre à modifier
   const { id } = useParams();
 
@@ -72,7 +75,7 @@ function FormModifierLivre() {
 
   /**
    * Fonction qui permet de gérer le changement des champs du formulaire
-   * @param {*} e 
+   * @param {*} e
    */
   function onInputChange(e) {
     const champ = e.currentTarget;
@@ -113,81 +116,83 @@ function FormModifierLivre() {
    * Fonction qui permet de valider le formulaire
    */
   function validerFormulaire() {
-      const nouvellesErreurs = {};
-      const dateCourante = new Date().getFullYear();
-  
-      if (isEmpty(donneesLivre.titre)) {
-        nouvellesErreurs.titre = "Le titre ne peut pas être vide";
-      } else if (!isLength(donneesLivre.titre, { max: 250 })) {
-        nouvellesErreurs.titre =
-          "Le titre est trop long. (maximum: 250 caractères)";      
-      }
-  
-      if (!isLength(donneesLivre.description, { max: 2000 })) {
-        nouvellesErreurs.description =
-          "La description est trop longue. (maximum: 2000 caractères)";
-      }
-  
-     if (!isLength(donneesLivre.editeur, { max: 100 })) {
-       nouvellesErreurs.editeur =
-         "L'éditeur doit contenir maximum 100 caractères.";
-     }
-  
-      if (isEmpty(donneesLivre.auteur)) {
-        nouvellesErreurs.auteur = "L'auteur ne peut pas être vide";
-      } else if (!isLength(donneesLivre.auteur, { max: 100 })) {
-        nouvellesErreurs.auteur =
-          "Le champ auteur est trop long. (maximum: 100 caractères)";
-      }
-  
-      if (isEmpty(donneesLivre.isbn)) {
-        nouvellesErreurs.isbn = "L'isbn ne peut pas être vide";
-      } else if (!isISBN(donneesLivre.isbn)) {
-        nouvellesErreurs.isbn =
-          "Veuillez entrer un ISBN valide (10 ou 13 caractères)";
-      }
-  
-      if (!isLength(donneesLivre.pages, { max: 10 })) {
-        nouvellesErreurs.page =
-          "Le nombre de page ne peut dépasser 10 caractères";
-      }
-  
-      if (!isEmpty(donneesLivre.date) && !isInt(donneesLivre.date, { min: 1900, max : dateCourante })) {
-        nouvellesErreurs.date =
-          "L'année de publication doit être une date valide entre 1900 et aujourd'hui.";
-      }
-  
-      if (isEmpty(donneesLivre.image)) {
-        nouvellesErreurs.image =
-          "Le champ image ne peut pas être vide";
-      }else if (
-        !donneesLivre.image.endsWith(".jpg") &&
-        !donneesLivre.image.endsWith(".jpeg") &&
-        !donneesLivre.image.endsWith(".png") &&
-        !donneesLivre.image.endsWith(".gif")
-      ) {
-        nouvellesErreurs.image =
-          "Veuillez entrer une image de format .jpeg, .gif, .png ou .jpg.";
-      }
-  
-      setErreurs(nouvellesErreurs); // On met à jour les erreurs
-  
-      // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.). 
-      setFormulaireValide(
-        formRef.current.checkValidity() &&
-          Object.keys(nouvellesErreurs).length === 0
-      );
+    const nouvellesErreurs = {};
+    const dateCourante = new Date().getFullYear();
+
+    if (isEmpty(donneesLivre.titre)) {
+      nouvellesErreurs.titre = "Le titre ne peut pas être vide";
+    } else if (!isLength(donneesLivre.titre, { max: 250 })) {
+      nouvellesErreurs.titre =
+        "Le titre est trop long. (maximum: 250 caractères)";
     }
+
+    if (!isLength(donneesLivre.description, { max: 2000 })) {
+      nouvellesErreurs.description =
+        "La description est trop longue. (maximum: 2000 caractères)";
+    }
+
+    if (!isLength(donneesLivre.editeur, { max: 100 })) {
+      nouvellesErreurs.editeur =
+        "L'éditeur doit contenir maximum 100 caractères.";
+    }
+
+    if (isEmpty(donneesLivre.auteur)) {
+      nouvellesErreurs.auteur = "L'auteur ne peut pas être vide";
+    } else if (!isLength(donneesLivre.auteur, { max: 100 })) {
+      nouvellesErreurs.auteur =
+        "Le champ auteur est trop long. (maximum: 100 caractères)";
+    }
+
+    if (isEmpty(donneesLivre.isbn)) {
+      nouvellesErreurs.isbn = "L'isbn ne peut pas être vide";
+    } else if (!isISBN(donneesLivre.isbn)) {
+      nouvellesErreurs.isbn =
+        "Veuillez entrer un ISBN valide (10 ou 13 caractères)";
+    }
+
+    if (!isLength(donneesLivre.pages, { max: 10 })) {
+      nouvellesErreurs.page =
+        "Le nombre de page ne peut dépasser 10 caractères";
+    }
+
+    if (
+      !isEmpty(donneesLivre.date) &&
+      !isInt(donneesLivre.date, { min: 1900, max: dateCourante })
+    ) {
+      nouvellesErreurs.date =
+        "L'année de publication doit être une date valide entre 1900 et aujourd'hui.";
+    }
+
+    if (isEmpty(donneesLivre.image)) {
+      nouvellesErreurs.image = "Le champ image ne peut pas être vide";
+    } else if (
+      !donneesLivre.image.endsWith(".jpg") &&
+      !donneesLivre.image.endsWith(".jpeg") &&
+      !donneesLivre.image.endsWith(".png") &&
+      !donneesLivre.image.endsWith(".gif")
+    ) {
+      nouvellesErreurs.image =
+        "Veuillez entrer une image de format .jpeg, .gif, .png ou .jpg.";
+    }
+
+    setErreurs(nouvellesErreurs); // On met à jour les erreurs
+
+    // On vérifie si le formulaire est valide en vérifiant s'il n'y a pas d'erreurs et si le formulaire est valide selon les règles de validation de HTML 5 (required, type, etc.).
+    setFormulaireValide(
+      formRef.current.checkValidity() &&
+        Object.keys(nouvellesErreurs).length === 0
+    );
+  }
 
   /**
    * Fonction qui permet de soumettre le formulaire de modification d'un livre
-   * @param {*} e 
+   * @param {*} e
    */
   async function onSubmit(e) {
     e.preventDefault();
     validerFormulaire();
     if (formRef.current.checkValidity() && formulaireValide) {
-      try{
+      try {
         let url = import.meta.env.VITE_DEV_URL;
 
         if (import.meta.env.VITE_MODE == "PRODUCTION") {
@@ -197,6 +202,7 @@ function FormModifierLivre() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${jeton}`,
           },
           body: JSON.stringify(donneesLivre),
         };
@@ -208,11 +214,10 @@ function FormModifierLivre() {
         } else {
           setMessage(resultat.message);
         }
-      }catch(erreur){
+      } catch (erreur) {
         setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
       }
-    }
-    else{
+    } else {
       setMessage("Veuillez corriger les erreurs dans le formulaire.");
     }
   }
@@ -403,7 +408,7 @@ function FormModifierLivre() {
           </div>
         </div>
 
-{/* SECTION CATÉGORIES - CHECKBOXES */}
+        {/* SECTION CATÉGORIES - CHECKBOXES */}
         <div className="border-b border-neutral-50 pb-12 ">
           <h2 className="text-lg ">Catégories</h2>
           <p className="mt-1 text-sm/6 text-gray-400">
