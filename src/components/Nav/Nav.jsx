@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import { useState, useRef } from "react";
 import {
   Dialog,
@@ -8,22 +8,29 @@ import {
 } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { AuthContext } from '../AuthContext/AuthContext';
-import { useContext } from 'react';
+import { AuthContext } from "../AuthContext/AuthContext";
+import { useContext } from "react";
 import { motion } from "motion/react";
+import { isEmpty } from "validator";
 
 function Nav() {
   // Référence pour le formulaire
   const formRef = useRef();
-
-  const navigate = useNavigate();
-
   // Variables d'état
+  const [donneesUtilisateur, setDonneesUtilisateur] = useState({
+    courriel: "",
+    mdp: "",
+  });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { jeton, connexion, deconnexion } = useContext(AuthContext);
+
   // Variable d'état pour la modale de connexion
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [erreurs, setErreurs] = useState({
+    courriel: "",
+    mdp: "",
+  });
 
   // Variants pour les animations
   const aVariants = { initial: { x: 0 }, whileHover: { x: 0 } };
@@ -31,45 +38,71 @@ function Nav() {
     initial: { x: 0 },
     whileHover: { x: 10, transition: { duration: 0.5 } },
   };
-  
+
+  // Fonction qui permet de gérer les changements dans les champs du formulaire
+  function onInputChange(e) {
+    const champ = e.currentTarget;
+    const nom = champ.name;
+    let valeur = champ.value;
+
+    const nouvellesValeurs = { ...donneesUtilisateur, [nom]: valeur };
+    setDonneesUtilisateur(nouvellesValeurs);
+  }
+
+  function validerFormulaire() {
+    const nouvellesErreurs = {};
+
+    if (isEmpty(donneesUtilisateur.courriel)) {
+      nouvellesErreurs.courriel = "Le courriel est requis.";
+    }
+    if (isEmpty(donneesUtilisateur.mdp)) {
+      nouvellesErreurs.mdp = "Le mot de passe est requis.";
+    }
+    setErreurs(nouvellesErreurs);
+    return (
+      formRef.current.checkValidity() &&
+      Object.keys(nouvellesErreurs).length === 0
+    );
+  }
+
   async function envoiFormulaire(e) {
-    try{
-      e.preventDefault();
+    e.preventDefault();
+    const formulaireEstValide = validerFormulaire();
+    // Récupérer les valeurs du formulaire
+    const { courriel, mdp } = formRef.current;
+    const body = { courriel: courriel.value, mdp: mdp.value };
+    try {
+      if (formulaireEstValide) {
+        const optionsRequete = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        };
 
-      // TODO: Valider les données du formulaire
+        // Déterminer l'URL de la requête en fonction de l'environnement
+        let url = import.meta.env.VITE_DEV_URL;
 
-      // Récupérer les valeurs du formulaire
-      const { courriel, mdp } = formRef.current;
-      const body = { courriel: courriel.value, mdp: mdp.value };
+        if (import.meta.env.VITE_MODE == "PRODUCTION") {
+          url = import.meta.env.VITE_PROD_URL;
+        }
 
-      const optionsRequete = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      }
+        const reponse = await fetch(
+          `${url}/utilisateurs/connexion`,
+          optionsRequete
+        );
 
-      // Déterminer l'URL de la requête en fonction de l'environnement
-      let url = import.meta.env.VITE_DEV_URL;
+        const donnees = await reponse.json();
 
-      if (import.meta.env.VITE_MODE == "PRODUCTION") {
-        url = import.meta.env.VITE_PROD_URL;
-      }
+        if (reponse.ok) {
+          setMessage(donnees.message);
+          connexion(donnees.jeton);
+          setOpen(false);
+        } else {
+          setMessage(donnees.message);
+        }
 
-      const reponse = await fetch(`${url}/utilisateurs/connexion`, optionsRequete);
-      const donnees = await reponse.json();
-      console.log(donnees);
-      
-      if (reponse.ok) {        
-        setMessage(donnees.message)
-        // setTimeout(() => {
-        //   setMessage("");
-        // }, 2000);
-        connexion(donnees.jeton);
-      }else{
-        setMessage(donnees.message);
-      }
-
-    }catch(erreur){
+      } 
+    } catch (erreur) {
       setMessage("Une erreur est survenue. Réessayez dans quelques instants.");
     }
   }
@@ -261,9 +294,15 @@ function Nav() {
                           id="courriel"
                           name="courriel"
                           type="email"
+                          onChange={onInputChange}
                           className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                         />
                       </div>
+                      {erreurs.courriel && (
+                        <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                          {erreurs.courriel}
+                        </div>
+                      )}
                       <label htmlFor="mdp" className="text-gray-700">
                         Mot de passe
                       </label>
@@ -272,13 +311,19 @@ function Nav() {
                           id="mdp"
                           name="mdp"
                           type="password"
+                          onChange={onInputChange}
                           className="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
                         />
                       </div>
+                      {erreurs.mdp && (
+                        <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                          {erreurs.mdp}
+                        </div>
+                      )}
                       <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                         <button
                           type="submit"
-                          onClick={() => setOpen(false)}
+                          // onClick={() => setOpen(false)}
                           className="inline-flex w-full justify-center rounded-md bg-yellow-700 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-400 sm:ml-3 sm:w-auto"
                         >
                           Connexion
@@ -286,7 +331,7 @@ function Nav() {
                         <button
                           type="button"
                           data-autofocus
-                          onClick={() => setOpen(false)}
+                          onClick={() => {setErreurs({ courriel: "", mdp: "" }); setOpen(false)}}
                           className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         >
                           Annuler
