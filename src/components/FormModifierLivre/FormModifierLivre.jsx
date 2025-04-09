@@ -226,7 +226,7 @@ function FormModifierLivre() {
       action=""
       onSubmit={onSubmit}
       ref={formRef}
-      className="isolate px-6 mt-[100px] mb-[100px] mt-[150px]"
+      className="isolate px-6 mb-[100px] mt-[150px]"
     >
       <div className="mx-auto max-w-2xl space-y-12 mt-[100px]">
         <div className="border-b border-neutral-50 pb-12">
