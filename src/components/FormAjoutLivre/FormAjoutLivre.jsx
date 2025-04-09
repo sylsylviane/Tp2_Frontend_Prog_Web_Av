@@ -213,7 +213,9 @@ function FormAjoutLivre() {
                   />
                 </div>
                 {erreurs.titre && (
-                  <div className="text-red-500 pt-2">{erreurs.titre}</div>
+                  <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                    {erreurs.titre}
+                  </div>
                 )}
               </div>
             </div>
@@ -233,7 +235,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.description && (
-                <div className="text-red-500 pt-2">{erreurs.description}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.description}
+                </div>
               )}
 
               <p className="mt-3 text-sm/6 text-gray-400">
@@ -265,7 +269,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.editeur && (
-                <div className="text-red-500 pt-2">{erreurs.editeur}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.editeur}
+                </div>
               )}
             </div>
 
@@ -284,7 +290,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.auteur && (
-                <div className="text-red-500 pt-2">{erreurs.auteur}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.auteur}
+                </div>
               )}
             </div>
 
@@ -303,7 +311,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.isbn && (
-                <div className="text-red-500 pt-2">{erreurs.isbn}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.isbn}
+                </div>
               )}
             </div>
 
@@ -322,7 +332,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.date && (
-                <div className="text-red-500 pt-2">{erreurs.date}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.date}
+                </div>
               )}
             </div>
 
@@ -341,7 +353,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.image && (
-                <p className="text-red-500 pt-2">{erreurs.image}</p>
+                <p className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.image}
+                </p>
               )}
             </div>
 
@@ -361,7 +375,9 @@ function FormAjoutLivre() {
                 />
               </div>
               {erreurs.pages && (
-                <p className="text-red-500 pt-2">{erreurs.pages}</p>
+                <p className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.pages}
+                </p>
               )}
             </div>
           </div>
