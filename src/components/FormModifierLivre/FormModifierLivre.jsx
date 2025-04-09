@@ -216,39 +216,9 @@ function FormModifierLivre() {
           setMessage(resultat.message);
         }
       }
-    }catch (erreur) {
+    } catch (erreur) {
       setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
     }
-      
-    // if (formRef.current.checkValidity() && formulaireValide) {
-    //   try {
-    //     let url = import.meta.env.VITE_DEV_URL;
-
-    //     if (import.meta.env.VITE_MODE == "PRODUCTION") {
-    //       url = import.meta.env.VITE_PROD_URL;
-    //     }
-    // const objDonnees = {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     authorization: `Bearer ${jeton}`,
-    //   },
-    //   body: JSON.stringify(donneesLivre),
-    // };
-
-    //     const reponse = await fetch(`${url}/livres/${id}`, objDonnees);
-
-    // if (reponse.ok) {
-    //   navigate(`/livres/${id}`);
-    // } else {
-    //   setMessage(resultat.message);
-    // }
-    //   } catch (erreur) {
-    //     setMessage("Une erreur s'est produite. Veuillez réessayer plus tard.");
-    //   }
-    // } else {
-    //   setMessage("Veuillez corriger les erreurs dans le formulaire.");
-    // }
   }
 
   return (
@@ -283,7 +253,9 @@ function FormModifierLivre() {
                   />
                 </div>
                 {erreurs.titre && (
-                  <div className="text-red-500 pt-2">{erreurs.titre}</div>
+                  <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                    {erreurs.titre}
+                  </div>
                 )}
               </div>
             </div>
@@ -303,7 +275,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.description && (
-                <div className="text-red-500 pt-2">{erreurs.description}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.description}
+                </div>
               )}
 
               <p className="mt-3 text-sm/6 text-gray-400">
@@ -335,7 +309,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.editeur && (
-                <div className="text-red-500 pt-2">{erreurs.editeur}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.editeur}
+                </div>
               )}
             </div>
 
@@ -354,7 +330,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.auteur && (
-                <div className="text-red-500 pt-2">{erreurs.auteur}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.auteur}
+                </div>
               )}
             </div>
 
@@ -373,7 +351,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.isbn && (
-                <div className="text-red-500 pt-2">{erreurs.isbn}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.isbn}
+                </div>
               )}
             </div>
 
@@ -392,7 +372,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.date && (
-                <div className="text-red-500 pt-2">{erreurs.date}</div>
+                <div className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.date}
+                </div>
               )}
             </div>
 
@@ -411,7 +393,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.image && (
-                <p className="text-red-500 pt-2">{erreurs.image}</p>
+                <p className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.image}
+                </p>
               )}
             </div>
 
@@ -431,7 +415,9 @@ function FormModifierLivre() {
                 />
               </div>
               {erreurs.pages && (
-                <p className="text-red-500 pt-2">{erreurs.pages}</p>
+                <p className="border rounded-md mt-1 p-3 bg-red-100 text-red-900">
+                  {erreurs.pages}
+                </p>
               )}
             </div>
           </div>
